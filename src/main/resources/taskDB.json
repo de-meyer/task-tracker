@@ -1,0 +1,65 @@
+[
+    {
+        "id": "9680c580-beed-4343-98eb-39cdb44da753",
+        "description": "Description 1",
+        "status": "TODO",
+        "createdAt": "2021-07-01T00:00:00Z",
+        "updatedAt": "2021-07-13T00:00:00Z"
+    },
+    {
+        "id": "5a9652ea-eaa6-47b4-a6b4-c4ebe5adff31",
+        "description": "Description 2",
+        "status": "IN_PROGRESS",
+        "createdAt": "2021-08-01T02:10:00Z",
+        "updatedAt": "2021-08-01T02:10:00Z"
+    },
+    {
+        "id": "13272e34-5027-40be-a45f-d2fe6f9b6e9e",
+        "description": "Description 3",
+        "status": "DONE",
+        "createdAt": "2021-10-05T09:30:00Z",
+        "updatedAt": "2021-10-13T10:45:00Z"
+    },
+    {
+        "id": "b1b3b1b3-1b3b-1b3b-1b3b-1b3b1b3b1b3b",
+        "description": "Description 4",
+        "status": "TODO",
+        "createdAt": "2021-11-01T00:00:00Z",
+        "updatedAt": null
+    },
+    {
+        "id": "b1b3b1b3-1b3b-1b3b-1b3b-1b3b1b3b1b3c",
+        "description": "Description 5",
+        "status": "DONE",
+        "createdAt": "2021-11-01T00:00:00Z",
+        "updatedAt": null
+    },
+    {
+        "id": "b1b3b1b3-1b3b-1b3b-1b3b-1b3b1b3b1b3d",
+        "description": "Description 6",
+        "status": "DONE",
+        "createdAt": "2021-11-01T00:00:00Z",
+        "updatedAt": null
+    },
+    {
+        "id": "b1b3b1b3-1b3b-1b3b-1b3b-1b3b1b3b1b3e",
+        "description": "7",
+        "status": "IN_PROGRESS",
+        "createdAt": "2021-11-01T00:00:00Z",
+        "updatedAt": null
+    },
+    {
+        "id": "b1b3b1b3-1b3b-1b3b-1b3b-1b3b1b3b1b3f",
+        "description": "Description 8",
+        "status": "DONE",
+        "createdAt": "2021-11-01T00:00:00Z",
+        "updatedAt": null
+    },
+    {
+        "id": "abddb30f-fef3-44b6-b829-845d6f4eea3f",
+        "description": "My new Task",
+        "status": "TODO",
+        "createdAt": "2024-12-22T02:41:51.499Z",
+        "updatedAt": null
+    }
+]
