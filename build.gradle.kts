@@ -4,11 +4,16 @@ plugins {
 	kotlin("plugin.serialization") version "1.9.0"  // or the version that matches your Kotlin version
 	id("org.springframework.boot") version "3.4.0"
 	id("io.spring.dependency-management") version "1.1.6"
+	application
 }
 
 group = "com.task"
 version = "0.0.1-SNAPSHOT"
 
+application {
+	mainClass.set("com.task.tracker.TrackerApplicationKt")
+	applicationDefaultJvmArgs = listOf("-Dfile.encoding=UTF-8")
+}
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)

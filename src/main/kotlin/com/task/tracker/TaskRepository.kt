@@ -5,12 +5,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import java.io.File
 import java.time.Instant
-import java.util.*
 
 class TaskRepository(private val file: File) {
     private val json = Json {
         serializersModule = SerializersModule {
-            contextual(UUID::class, UUIDSerializer)  // Register UUID serializer
             contextual(Instant::class, InstantSerializer)  // Register Instant serializer
         }
         prettyPrint = true }
@@ -32,7 +30,7 @@ class TaskRepository(private val file: File) {
         return readTasksFromFile()
     }
 
-    fun getTaskById(id: UUID): Task? {
+    fun getTaskById(id: Int): Task? {
         return getTasks().find { it.id == id }
     }
 
@@ -51,7 +49,7 @@ class TaskRepository(private val file: File) {
         }
     }
 
-    fun deleteTask(id: UUID) {
+    fun deleteTask(id: Int) {
         val tasks = getTasks().toMutableList()
         tasks.removeIf { it.id == id }
         writeTasksToFile(tasks)

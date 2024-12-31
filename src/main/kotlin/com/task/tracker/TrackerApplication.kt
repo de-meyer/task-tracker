@@ -8,67 +8,95 @@ import org.springframework.boot.runApplication
 class TrackerApplication
 
 fun main(args: Array<String>) {
+    val context = runApplication<TrackerApplication>(*args)
+    val taskService = context.getBean(TaskService::class.java)
+    if (args.isEmpty()) {
+        println("Usage: tracker <command> [options]")
+        return
+    }
+    when (val command = args[0]) {
+        "list" -> {
+            val tasks = taskService.getTasks()
+            println("Listing all tasks")
+            showHeader()
+            tasks.forEach { showTaskInline(it) }
+        }
 
-	val context = runApplication<TrackerApplication>(*args)
-	val taskService = context.getBean(TaskService::class.java)
-	var read = ""
-	while (read != "q") {
-		println("(a)dd, (u)pdate, (d)elete task?")
-		read = readln()
-		println("You said: $read")
-		when (read) {
-			"a" -> {
-				println("Creating new task -> enter your description")
-				read = readln()
-				taskService.createTask(read)
-				println("Task created successfully ")
-				showTask(taskService.getTasks().last())
-			}
-			"u" -> {
-				println("Which task do you want to update?")
-				val taskList = taskService.getTasks()
-				taskList.forEachIndexed() { index, it ->
-					println("($index) -> Task id: ${it.id} description: ${it.description}")
-				}
-				read = readln()
-				read.toIntOrNull() ?: continue // skip if not a number or null value
-				val task = taskList[read.toInt()]
-				println("enter new description")
-				val readDesc = readln()
-				println("Updating task ${taskService.getTasks().last().id}")
-				println("Do you want to update the status? (y/n)")
-				val readStatus = readln()
-				if (readStatus.lowercase() == "y") {
-					println("Enter new status (TODO, IN_PROGRESS, DONE)")
-					val readStat = readln()
-					taskService.updateTask(task.id,readDesc,TaskStatus.valueOf(readStat))
-				} else {
-					taskService.updateTask(task.id, readDesc, task.status)
-				}
-				println("Task updated successfully")
-				showTask(task)
-			}
-			"d" -> {
-				val taskList = taskService.getTasks()
-				taskList.forEachIndexed() { index, it ->
-					println("($index) -> Task id: ${it.id} description: ${it.description}")
-				}
-				println("Which task do you want to delete?")
-				read = readln()
-				read.toIntOrNull() ?: continue // skip if not a number or null value
-				val task = taskList[read.toInt()]
-				println("Deleting task ${task.id} with description ${task.description}")
-				taskService.deleteTask(task.id)
-				println("Task deleted successfully")
-				showTask(task)
-			}
-		}
-	}
+        "add" -> {
+            if (args.size < 2) {
+                println("Usage: tracker add <description> <status>")
+                return
+            }
+            println("Adding a new task")
+            val description = args[1]
+            taskService.createTask(description)
+        }
+
+        "update" -> {
+            println("Updating a task")
+            if (args.size < 3) {
+                println("Usage: tracker update <id> <description>")
+                return
+            }
+            val id = args[1].toInt()
+            val description = args[2]
+            taskService.updateTask(id, description)
+        }
+
+        "mark-todo" -> {
+            println("Marking a task as todo")
+            if (args.size < 2) {
+                println("Usage: tracker mark-todo <id>")
+                return
+            }
+            val id = args[1].toInt()
+            taskService.updateTask(id, TaskStatus.TODO)
+        }
+
+        "mark-in-progress" -> {
+            println("Marking a task as in-progress")
+            if (args.size < 2) {
+                println("Usage: tracker mark-in-progress <id>")
+                return
+            }
+            val id = args[1].toInt()
+            taskService.updateTask(id, TaskStatus.IN_PROGRESS)
+        }
+
+        "mark-done" -> {
+            println("Marking a task as done")
+            if (args.size < 2) {
+                println("Usage: tracker mark-done <id>")
+                return
+            }
+            val id = args[1].toInt()
+            taskService.updateTask(id, TaskStatus.DONE)
+        }
+
+        "delete" -> {
+            println("Deleting a task")
+            if (args.size < 2) {
+                println("Usage: tracker delete <id>")
+                return
+            }
+            val id = args[1].toInt()
+            taskService.deleteTask(id)
+        }
+
+        "exit" -> {
+            println("Exiting the application")
+            return
+        }
+
+        else -> {
+            println("Unknown command: $command")
+        }
+    }
 }
-fun showTask(task: Task) {
-	println("Task id: ${task.id}")
-	println("Task description: ${task.description}")
-	println("Task status: ${task.status}")
-	println("Task created at: ${task.createdAt}")
-	println("Task updated at: ${task.updatedAt}")
+
+fun showHeader() {
+    println("ID | Description | Status | Created At | Updated At")
+}
+fun showTaskInline(task: Task) {
+    println("${task.id} | ${task.description} | ${task.status} | ${task.createdAt} | ${task.updatedAt}")
 }

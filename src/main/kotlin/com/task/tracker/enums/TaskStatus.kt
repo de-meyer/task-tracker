@@ -1,7 +1,7 @@
 package com.task.tracker.enums
 
-enum class TaskStatus {
-    TODO,
-    IN_PROGRESS,
-    DONE
+enum class TaskStatus(status: String) {
+    TODO("todo"),
+    IN_PROGRESS("in-progress"),
+    DONE("done")
 }

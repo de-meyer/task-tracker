@@ -2,32 +2,41 @@ package com.task.tracker
 
 import com.task.tracker.enums.TaskStatus
 import org.springframework.stereotype.Service
-import java.io.File
+import java.nio.file.Paths
+import java.time.Instant
 import java.util.*
 
 @Service
 class TaskService {
-    val taskRepository = TaskRepository(File("src/main/resources/taskDB.json"))
+    val taskRepository = TaskRepository( Paths.get(System.getProperty("user.home"), "projects", "tracker", "src", "main", "resources", "taskDB.json").toFile())
 
     fun createTask(description: String) {
         taskRepository.addTask(Task(
-            id = UUID.randomUUID(),
+            id = taskRepository.getTasks().size + 1,
             description = description,
             status = TaskStatus.TODO,
             createdAt = Date().toInstant(),
             updatedAt = null))
     }
 
-    fun updateTask(id: UUID, description: String, status: TaskStatus) {
+    fun updateTask(id: Int, description: String) {
         val task = taskRepository.getTaskById(id)
         task?.let {
             it.description = description
+            it.updatedAt = Instant.now()
+        }
+        taskRepository.updateTask(task!!)
+    }
+    fun updateTask(id: Int, status: TaskStatus) {
+        val task = taskRepository.getTaskById(id)
+        task?.let {
             it.status = status
+            it.updatedAt = Instant.now()
         }
         taskRepository.updateTask(task!!)
     }
 
-    fun deleteTask(id: UUID) {
+    fun deleteTask(id: Int) {
         taskRepository.deleteTask(id)
     }
 
