@@ -72,7 +72,24 @@ fun main(args: Array<String>) {
             val id = args[1].toInt()
             taskService.updateTask(id, TaskStatus.DONE)
         }
-
+        "list-todo" -> {
+            val tasks = taskService.getTasksByStatus(TaskStatus.TODO)
+            println("Listing all tasks with status todo")
+            showHeader()
+            tasks.forEach { showTaskInline(it) }
+        }
+        "list-in-progress" -> {
+            val tasks = taskService.getTasksByStatus(TaskStatus.IN_PROGRESS)
+            println("Listing all tasks with status in-progress")
+            showHeader()
+            tasks.forEach { showTaskInline(it) }
+        }
+        "list-done" -> {
+            val tasks = taskService.getTasksByStatus(TaskStatus.DONE)
+            println("Listing all tasks with status done")
+            showHeader()
+            tasks.forEach { showTaskInline(it) }
+        }
         "delete" -> {
             println("Deleting a task")
             if (args.size < 2) {

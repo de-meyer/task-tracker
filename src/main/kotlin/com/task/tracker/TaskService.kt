@@ -43,4 +43,8 @@ class TaskService {
     fun getTasks(): List<Task> {
         return taskRepository.getTasks()
     }
+
+    fun getTasksByStatus(status: TaskStatus): List<Task> {
+        return taskRepository.getTasksByStatus(status)
+    }
 }

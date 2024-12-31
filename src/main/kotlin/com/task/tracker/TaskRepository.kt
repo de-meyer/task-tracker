@@ -1,5 +1,6 @@
 package com.task.tracker
 
+import com.task.tracker.enums.TaskStatus
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -29,7 +30,9 @@ class TaskRepository(private val file: File) {
     fun getTasks(): List<Task> {
         return readTasksFromFile()
     }
-
+    fun getTasksByStatus(status: TaskStatus): List<Task> {
+        return getTasks().filter { it.status == status }
+    }
     fun getTaskById(id: Int): Task? {
         return getTasks().find { it.id == id }
     }
