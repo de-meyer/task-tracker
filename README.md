@@ -1,6 +1,6 @@
 # Task Tracker
 This is a simple task tracker application that allows users to add, delete, and update tasks. The application is built using Spring Boot and Kotlin.
-
+Inspired by the [Task Tracker](https://roadmap.sh/projects/task-tracker) project on [Roadmap.sh](https://roadmap.sh/).
 ## Running the Application
 First check if gradlew is executable, if not make it executable by running the following command:
 ```shell
