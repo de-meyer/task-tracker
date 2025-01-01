@@ -7,6 +7,10 @@ import kotlinx.serialization.modules.SerializersModule
 import java.io.File
 import java.time.Instant
 
+/**
+ * TaskRepository class to manage tasks in the database file
+ */
+// TODO: fix reading and writing all tasks everytime since it's not efficient!
 class TaskRepository(private val file: File) {
     private val json = Json {
         serializersModule = SerializersModule {
@@ -22,6 +26,9 @@ class TaskRepository(private val file: File) {
         return json.decodeFromString(jsonContent)
     }
 
+    /**
+     * Persist tasks by writing them to db file
+     */
     private fun writeTasksToFile(tasks: List<Task>) {
         val jsonContent = json.encodeToString(tasks)
         file.writeText(jsonContent)

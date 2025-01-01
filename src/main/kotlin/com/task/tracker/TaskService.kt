@@ -23,7 +23,7 @@ class TaskService {
         val task = taskRepository.getTaskById(id)
         task?.let {
             it.description = description
-            it.updatedAt = Instant.now()
+            it.updatedAt = Instant.now() // Update additionally the updatedAt field with the current time
         }
         taskRepository.updateTask(task!!)
     }
@@ -31,7 +31,7 @@ class TaskService {
         val task = taskRepository.getTaskById(id)
         task?.let {
             it.status = status
-            it.updatedAt = Instant.now()
+            it.updatedAt = Instant.now() // Update additionally the updatedAt field with the current time
         }
         taskRepository.updateTask(task!!)
     }

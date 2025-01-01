@@ -18,8 +18,8 @@ data class Task(
     val id: Int,
     var description: String,
     var status: TaskStatus,
-    @Contextual val createdAt: Instant,
-    @Contextual var updatedAt: Instant?
+    @Contextual val createdAt: Instant, // Use @Contextual to serialize Instant
+    @Contextual var updatedAt: Instant? // Use @Contextual to serialize Instant
 )
 // Create a custom serializer for Instant
 object InstantSerializer : KSerializer<Instant> {
